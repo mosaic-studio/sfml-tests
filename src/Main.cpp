@@ -3,10 +3,9 @@
 int main()
 {
     std::cout << "Hello World Marlon!" << std::endl;
-    // float x = 0.f;
-    // int y = 0.f;
+
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works! Yeah!!");
-    sf::CircleShape shape(window.getSize().x/3);
+    sf::CircleShape shape(window.getSize().x/4);
 
     shape.setFillColor(sf::Color::White);
 
@@ -27,10 +26,23 @@ int main()
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            shape.move(0.5f, 0);
+            float xPos = shape.getGlobalBounds().width + shape.getPosition().x;
+            if( xPos <= (float) window.getSize().x)
+                shape.move(0.5f, 0.f);
 		}
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            shape.move(-0.5f, 0);
+            if(shape.getPosition().x >= 0)
+                shape.move(-0.5f, 0.f);
+		}
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+            float yPos = shape.getGlobalBounds().height + shape.getPosition().y;
+            if( yPos <= (float) window.getSize().y)
+                shape.move(0.f, 0.5f);
+		}
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            if(shape.getPosition().y >= 0)
+                shape.move(0.f, -0.5f);
 		}
 
         window.clear();
