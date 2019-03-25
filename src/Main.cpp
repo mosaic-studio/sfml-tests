@@ -1,11 +1,13 @@
-#include "Main.hpp"
+#include "include/Game.hpp"
 
 int main()
 {
     std::cout << "Hello World Marlon!" << std::endl;
 
-    sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works! Yeah!!");
-    sf::CircleShape shape(window.getSize().x/4);
+    cgf::Game game(5, 30);
+    game.init("SFML works! Yeah!!", 800, 800, false);
+
+    sf::CircleShape shape(game.getWindow()->getSize().x/4);
 
     shape.setFillColor(sf::Color::White);
 
@@ -13,21 +15,21 @@ int main()
     shapeTexture.loadFromFile("content/sfml.png");
     shape.setTexture(&shapeTexture);
 
-    while (window.isOpen())
+    while (game.isRunning())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (game.getWindow()->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                game.close();
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-			    window.close();
+			    game.close();
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
             float xPos = shape.getGlobalBounds().width + shape.getPosition().x;
-            if( xPos <= (float) window.getSize().x)
+            if( xPos <= (float) game.getWindow()->getSize().x)
                 shape.move(0.5f, 0.f);
 		}
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
@@ -37,7 +39,7 @@ int main()
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
             float yPos = shape.getGlobalBounds().height + shape.getPosition().y;
-            if( yPos <= (float) window.getSize().y)
+            if( yPos <= (float) game.getWindow()->getSize().y)
                 shape.move(0.f, 0.5f);
 		}
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
@@ -45,10 +47,10 @@ int main()
                 shape.move(0.f, -0.5f);
 		}
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        game.getWindow()->clear();
+        game.getWindow()->draw(shape);
+        game.getWindow()->display();
     }
-
+    game.clean();
     return 0;
 }

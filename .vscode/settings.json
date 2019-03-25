@@ -30,7 +30,7 @@
 
 	"files.encoding": "windows1252",
 	"files.trimTrailingWhitespace": true,
-	"files.eol": "\n",
+	"files.eol": "\r\n",
 	"files.exclude": {
 		//".vscode/_*.json": true,
 		".vscode/tasks.json": true,
