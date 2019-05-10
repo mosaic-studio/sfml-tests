@@ -30,6 +30,11 @@ namespace cgf{
 			unsigned int height;
 			unsigned int width;
 			bool fullScreen;
+			sf::Clock gameClock;
+			double updateInterval;
+			double maxCyclesPerFrame;
+			double lastFrameTime;
+			double cyclesLeftOver;
 	};
 }
 #endif

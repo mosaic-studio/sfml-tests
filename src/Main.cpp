@@ -1,4 +1,5 @@
 #include "include/Game.hpp"
+#include "include/FirstMap.hpp"
 
 int main()
 {
@@ -11,45 +12,49 @@ int main()
 
     shape.setFillColor(sf::Color::White);
 
-    sf::Texture shapeTexture;
-    shapeTexture.loadFromFile("content/sfml.png");
-    shape.setTexture(&shapeTexture);
+    sf::Sprite playSprite1;
+    // shapeTexture.loadFromFile("content/sfml.png");
+    // shape.setTexture(&shapeTexture);
+
+    // playSprite1. ("data/img/smurf.xml");
+
+    game.changeState(FirstMap::instance());
 
     while (game.isRunning())
     {
-        sf::Event event;
-        while (game.getWindow()->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                game.close();
 
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-			    game.close();
-        }
+        // sf::Event event;
+        // while (game.getWindow()->pollEvent(event))
+        // {
+        //     if (event.type == sf::Event::Closed)
+        //         game.close();
+        //     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+		// 	    game.close();
+        // }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            float xPos = shape.getGlobalBounds().width + shape.getPosition().x;
-            if( xPos <= (float) game.getWindow()->getSize().x)
-                shape.move(0.5f, 0.f);
-		}
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            if(shape.getPosition().x >= 0)
-                shape.move(-0.5f, 0.f);
-		}
+        // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        //     float xPos = shape.getGlobalBounds().width + shape.getPosition().x;
+        //     if( xPos <= (float) game.getWindow()->getSize().x)
+                // shape.move(0.5f, 0.f);
+		// }
+        // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        //     if(shape.getPosition().x >= 0)
+        //         shape.move(-0.5f, 0.f);
+		// }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-            float yPos = shape.getGlobalBounds().height + shape.getPosition().y;
-            if( yPos <= (float) game.getWindow()->getSize().y)
-                shape.move(0.f, 0.5f);
-		}
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            if(shape.getPosition().y >= 0)
-                shape.move(0.f, -0.5f);
-		}
+        // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        //     float yPos = shape.getGlobalBounds().height + shape.getPosition().y;
+        //     if( yPos <= (float) game.getWindow()->getSize().y)
+        //         shape.move(0.f, 0.5f);
+		// }
+        // if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        //     if(shape.getPosition().y >= 0)
+        //         shape.move(0.f, -0.5f);
+		// }
 
-        game.getWindow()->clear();
-        game.getWindow()->draw(shape);
-        game.getWindow()->display();
+        game.handleEvents();
+		game.update();
+		game.draw();
     }
     game.clean();
     return 0;

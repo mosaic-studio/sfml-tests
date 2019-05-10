@@ -22,18 +22,47 @@ namespace cgf
 	}
 
 	void Game::changeState(cgf::GameState* state){
+		if ( !states.empty() ) {
+			states.top()->cleanup();
+			states.pop();
+		}
 
+		states.push(state);
+		states.top()->init();
 	}
 
 	void Game::handleEvents(){
-
+		states.top()->handleEvents(this);
 	}
 
 	void Game::update(){
+		double currentTime, updateIterations;
 
+		currentTime = gameClock.getElapsedTime().asMilliseconds();
+		updateIterations = ((currentTime - lastFrameTime) + cyclesLeftOver);
+
+		if (updateIterations > maxCyclesPerFrame * updateInterval) {
+			updateIterations = maxCyclesPerFrame * updateInterval;
+		}
+
+		// int cont = 1;
+		while(updateIterations > updateInterval) {
+			updateIterations -= updateInterval;
+			//cout << "updating " << cont++ << endl;
+			if ( !states.empty() )
+				states.top()->update(this);
+		}
+		cyclesLeftOver = updateIterations;
+		lastFrameTime = currentTime;
 	}
-	void Game::draw(){
 
+	void Game::draw(){
+		window->clear();
+		// clock.beginFrame();
+		states.top()->draw(this);
+
+		window->display();
+		// clock.endFrame();
 	}
 	void Game::clean(){
 		this->window->clear();
