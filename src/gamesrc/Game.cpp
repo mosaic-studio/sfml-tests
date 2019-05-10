@@ -28,7 +28,7 @@ namespace cgf
 		}
 
 		states.push(state);
-		states.top()->init();
+		states.top()->init(this);
 	}
 
 	void Game::handleEvents(){

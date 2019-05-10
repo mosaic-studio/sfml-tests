@@ -19,8 +19,6 @@ public:
     enum InputType
     {
         KeyboardInput,
-        MouseInput,
-        JoystickInput // TODO
     };
 
     // Implement Singleton Pattern
@@ -30,7 +28,6 @@ public:
     }
 
     void addKeyInput(sf::String name, sf::Keyboard::Key keyCode);
-    void addMouseInput(sf::String name, sf::Mouse::Button mouseButton);
     bool testEvent(sf::String name);
 
     protected:
@@ -43,7 +40,6 @@ private:
     {
         InputType myInputType;
         sf::Keyboard::Key myKeyCode;
-        sf::Mouse::Button myMouseButton;
     };
 
     typedef std::map<std::string,MyKeys>  mapT;

@@ -7,7 +7,7 @@ namespace cgf{
 	{
 		public:
 
-		virtual void init() = 0;
+		virtual void init(cgf::Game* game) = 0;
 		virtual void cleanup() = 0;
 
 		virtual void pause() = 0;

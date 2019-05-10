@@ -12,13 +12,13 @@ int main()
 
     shape.setFillColor(sf::Color::White);
 
-    sf::Sprite playSprite1;
+    // sf::Sprite playSprite1;
     // shapeTexture.loadFromFile("content/sfml.png");
     // shape.setTexture(&shapeTexture);
 
     // playSprite1. ("data/img/smurf.xml");
 
-    game.changeState(FirstMap::instance());
+    game.changeState(cgf::FirstMap::instance());
 
     while (game.isRunning())
     {
